@@ -51,7 +51,7 @@ class TodoScreen extends StatelessWidget {
 
   Widget _todo(Todo todo, context){
     return InkWell(
-      // onTap: () => Naviiga,
+      onTap: () => Navigator.pushNamed(context, EDIT_TODO_ROUTE, arguments: todo),
       child: Dismissible(
         key: Key("${todo.id}"),
         background: Container(color: Colors.blueAccent,),

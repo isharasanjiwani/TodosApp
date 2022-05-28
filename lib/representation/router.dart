@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:todos_app/constants/strings.dart';
 import 'package:todos_app/cubit/add_todo_cubit.dart';
 import 'package:todos_app/cubit/todos_cubit.dart';
+import 'package:todos_app/data/models/todo.dart';
 import 'package:todos_app/data/network_service.dart';
 import 'package:todos_app/data/repository.dart';
 import 'package:todos_app/representation/add_todo_screen.dart';
 import 'package:todos_app/representation/edit_todo_screen.dart';
 import 'package:todos_app/representation/todo_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../cubit/edit_todo_cubit.dart';
 
 class AppRouter {
 
@@ -26,9 +29,12 @@ class AppRouter {
           value: todosCubit,
           child: TodoScreen(),));
       case EDIT_TODO_ROUTE:
+        final todo = settings.arguments as Todo;
         return MaterialPageRoute(builder: (_) => BlocProvider(
-            create: (BuildContext context) => AddTodoCubit(repository: repository, todosCubit: todosCubit),
-            child: EditTodoScreen()));
+            create: (BuildContext context) => EditTodoCubit(
+                repository: repository,
+                todosCubit: todosCubit),
+            child: EditTodoScreen(todo: todo,)));
       case ADD_TODO_ROUTE:
         return MaterialPageRoute(builder: (_) => BlocProvider(
             create: (BuildContext context) => AddTodoCubit(repository: repository, todosCubit: todosCubit),

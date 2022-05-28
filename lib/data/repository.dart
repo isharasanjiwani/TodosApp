@@ -27,4 +27,13 @@ class Repository {
     final todoMap = await networkService.addTodo(todoObj);
     return todoMap != null ? Todo.fromJson(todoMap): null;
   }
+
+  Future<bool> deleteTodo(int? id) async{
+    return await networkService.deleteTodo(id);
+  }
+
+  Future<bool> updateTodo(String message, int? id) async {
+    final patchObj = { "todos": message };
+    return await networkService.patchTodo(patchObj, id);
+  }
 }
